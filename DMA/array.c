@@ -7,7 +7,7 @@ typedef struct {
 }Person;
 
 void printPerson(Person *arr, int n);
-void makePerson(Person *arr, int n);
+Person *createPerson(int n);
 
 int main() {
     int n;
@@ -15,8 +15,7 @@ int main() {
     scanf("%d", &n);
     printf("-----------------------------\n");
 
-    Person *ptr = (Person *)malloc(n * sizeof(Person));
-    makePerson(ptr,n);
+    Person *ptr = createPerson(n);
 
     printf("--------------Result-------------\n");
     printPerson(ptr, n);
@@ -33,15 +32,18 @@ void printPerson(Person *arr, int n) {
     }
 }
 
-void makePerson(Person *arr, int n) {
+Person *createPerson(int n) {
+    Person *ptr = (Person *)malloc(n * sizeof(Person));
+    
     for(int i = 0; i < n; i++) {
         printf("Person %d\n", i+1);
         getchar();
         
         printf("Enter the name: ");
-        fgets(arr[i].name, sizeof(arr[i].name), stdin);
+        fgets(ptr[i].name, sizeof(ptr[i].name), stdin);
         
         printf("Enter the age: ");
-        scanf("%d", &arr[i].age);
+        scanf("%d", &ptr[i].age);
     }
+    return ptr;
 }
