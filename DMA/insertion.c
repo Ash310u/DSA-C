@@ -1,6 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+void free2dArr(int **ptr, int n) {
+    for (int i = 0; i < n; i++) {
+        free(ptr[i]);
+    }
+    free(ptr);
+}
 int **inputMatrix(int n) {
     int **mat = (int **)malloc(n * sizeof(int *));
     if (mat == NULL) {
@@ -25,20 +31,25 @@ void printMatrix(int **mat, int n) {
     }
 }
 
-void insertElement(int **mat, int insert, int pos, int n) {
+int insertElement(int **mat, int insert, int pos, int n) {
     int count = 1;
     int temp;
     for(int i = 0; i < n; i++) {
         for(int j = 0; j < n; j++) {
-            if(count == pos) {
-                temp = mat[i][j];
-                mat[i][j] = insert;
-                insert = temp;
-                pos++;
+            if(pos < 1 || pos > n*n) {
+                return 1;
+            } else {
+                if(count == pos) {
+                    temp = mat[i][j];
+                    mat[i][j] = insert;
+                    insert = temp;
+                    pos++;
+                }
+                count++;
             }
-            count++;
         }
     }
+    return 0;
 }
 
 int main() {
@@ -58,15 +69,15 @@ int main() {
     printf("Enter the position to insert: ");
     scanf("%d", &pos);
 
-    insertElement(ptr, insert, pos, n);
+    if(insertElement(ptr, insert, pos, n)) {
+        printf("Provide a valid position\n");
+        free2dArr(ptr, n);
+        return 1;
+    }
 
     printf("Matrix after insertion:\n");
     printMatrix(ptr, n);
-
-    for (int i = 0; i < n; i++) {
-        free(ptr[i]);
-    }
-    free(ptr);
     
+    free2dArr(ptr, n);
     return 0;
 }
