@@ -63,5 +63,10 @@ int main() {
     printf("Matrix after insertion:\n");
     printMatrix(ptr, n);
 
+    for (int i = 0; i < n; i++) {
+        free(ptr[i]);
+    }
+    free(ptr);
+    
     return 0;
 }
