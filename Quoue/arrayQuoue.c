@@ -51,3 +51,38 @@ void printQueue(Queue *q) {
     }
     printf("\n");
 }
+
+int main() {
+    Queue q;
+    initQueue(&q);
+    while (1) {
+        int choice, n;
+        printf("Enter the choice: \n");
+        printf("1. Enqueue\n");
+        printf("2. Dequeue\n");
+        printf("3. Print Queue\n");
+        printf("4. Exit\n");
+        scanf("%d", &choice);
+        
+        switch (choice) {
+            case 1:
+                printf("Enter the value to enqueue: ");
+                scanf("%d", &n);
+                enqueue(&q, n);
+                break;
+            case 2:
+                dequeue(&q, &n);
+                break;
+            case 3:
+                printQueue(&q);
+                break;
+            case 4:
+                return 0;
+            default:
+                printf("Invalid choice\n");
+                break;
+        }
+    }
+
+    return 0;
+}
