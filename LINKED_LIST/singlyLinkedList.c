@@ -28,19 +28,6 @@ void insert(NODE **head, int value) {
     ptr->next = n;
 }
 
-
-// // Mistakes in the original delete function:
-// // 1. Incorrect handling of deleting the head node.
-// // 2. Incorrect initialization of 'prev' (should be NULL, not *head).
-// // 3. The loop and logic do not properly traverse and delete nodes.
-// // 4. Incorrect use of 'ptr-value' in printf (should be 'ptr->value').
-// // 5. Freeing 'temp' after assigning 'prev->next = temp' is wrong; it deletes the next node unintentionally.
-// // 6. The function does not update 'ptr' in the loop, leading to an infinite loop.
-// // 7. No return after deletion, so it may try to access freed memory.
-// // 8. No handling for the case when the value is not found.
-
-// Here's a corrected version:
-
 void delete(NODE **head, int value) {
     if (*head == NULL) {
         printf("List is Empty\n");
