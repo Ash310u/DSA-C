@@ -75,7 +75,6 @@ void delete(NODE **head, int value) {
     }
     free(ptr);
 }
-
 int main() {
     NODE *head = NULL;
     int choise, x;
