@@ -33,8 +33,8 @@ void delete(NODE **head, int value) {
         return;
     }
 
-    NODE *ptr = *head;
-    NODE *prev = NULL;
+    NODE *ptr = (*head)->next;
+    NODE *prev = *head;
 
     // Check if the head node holds the value to delete
     if (ptr->value == value) {
