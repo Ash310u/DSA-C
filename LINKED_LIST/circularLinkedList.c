@@ -62,11 +62,11 @@ void delete(NODE **head, int value) {
 
 int main() {
     NODE *head = NULL;
-    int choise, x;
+    int choice, x;
     while(1) {
-        printf("Enter your choise: 1. Insert, 2. Delete, 3. Display, 4. Exit\n");
-        scanf("%d", &choise);
-        switch (choise) {
+        printf("Enter your choice: 1. Insert, 2. Delete, 3. Display, 4. Exit\n");
+        scanf("%d", &choice);
+        switch (choice) {
             case 1:
                 printf("Enter the value: ");
                 scanf("%d", &x);
