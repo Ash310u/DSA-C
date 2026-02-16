@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void bubbleSort(int arr[], int len) {
+void insertionSort(int arr[], int len) {
     for(int i = 1; i < len; i++) {
         int curr = arr[i];
         int j;
@@ -26,7 +26,7 @@ int main() {
         scanf("%d", &arrPtr[i]);
     }
 
-    bubbleSort(arrPtr, n);
+    insertionSort(arrPtr, n);
 
     for(int i = 0; i < n; i++) {
         printf("%d", arrPtr[i]);
