@@ -4,18 +4,26 @@
 int queue[MAX];
 int front = -1, rear = -1;
 
+// Function to check if the queue is full
+int isFull() {
+    return ((front == 0 && rear == MAX - 1) || ((rear + 1) % MAX == front));
+}
+
+// Function to check if the queue is empty
+int isEmpty() {
+    return (front == -1);
+}
+
 // Function to insert an element in the circular queue
 void insert(int value) {
-    if ((front == 0 && rear == MAX - 1) || (rear == (front - 1) % (MAX - 1))) {
+    if (isFull()) {
         printf("Queue is Full\n");
         return;
     }
     if (front == -1) { // First element
         front = rear = 0;
-    } else if (rear == MAX - 1 && front != 0) {
-        rear = 0;
     } else {
-        rear++;
+        rear = (rear + 1) % MAX;
     }
     queue[rear] = value;
     printf("Inserted %d\n", value);
@@ -23,35 +31,32 @@ void insert(int value) {
 
 // Function to delete an element from the circular queue
 void delete() {
-    if (front == -1) {
+    if (isEmpty()) {
         printf("Queue is Empty\n");
         return;
     }
     printf("Deleted %d\n", queue[front]);
     if (front == rear) {
+        // Queue has only one element, reset to empty
         front = rear = -1;
-    } else if (front == MAX - 1) {
-        front = 0;
     } else {
-        front++;
+        front = (front + 1) % MAX;
     }
 }
 
 // Function to display the elements of the circular queue
 void display() {
-    if (front == -1) {
+    if (isEmpty()) {
         printf("Queue is Empty\n");
         return;
     }
     printf("Queue elements: ");
-    if (rear >= front) {
-        for (int i = front; i <= rear; i++)
-            printf("%d ", queue[i]);
-    } else {
-        for (int i = front; i < MAX; i++)
-            printf("%d ", queue[i]);
-        for (int i = 0; i <= rear; i++)
-            printf("%d ", queue[i]);
+    int i = front;
+    while (1) {
+        printf("%d ", queue[i]);
+        if (i == rear)
+            break;
+        i = (i + 1) % MAX;
     }
     printf("\n");
 }
