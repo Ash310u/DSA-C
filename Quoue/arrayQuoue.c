@@ -1,25 +1,26 @@
 #include <stdio.h>
 #define MAX_SIZE 5
 
-int isFull(int front, int rear) {
-    // Queue is full if next position of rear is front (circular)
-    return ((rear + 1) % MAX_SIZE) == front;
+int isFull(int rear) {
+    // In a normal queue, queue is full if rear is at last index
+    return rear == MAX_SIZE - 1;
 }
 
 int isEmpty(int front, int rear) {
-    // Queue is empty if front == -1
-    return front == -1;
+    // Queue is empty if front is -1 or front > rear
+    return (front == -1) || (front > rear);
 }
 
 int enqueue(int q[], int value, int *front, int *rear) {
-    if (isFull(*front, *rear)) {
+    if (isFull(*rear)) {
         printf("Queue is full\n");
         return 0;
     }
     if (isEmpty(*front, *rear)) {
-        *front = *rear = 0;
+        *front = 0;
+        *rear = 0;
     } else {
-        *rear = (*rear + 1) % MAX_SIZE;
+        (*rear)++;
     }
     q[*rear] = value;
     return 1;
@@ -32,10 +33,10 @@ int dequeue(int q[], int *value, int *front, int *rear) {
     }
     *value = q[*front];
     if (*front == *rear) {
-        // Queue has only one element, reset to empty
+        // Only one element in queue
         *front = *rear = -1;
     } else {
-        *front = (*front + 1) % MAX_SIZE;
+        (*front)++;
     }
     return 1;
 }
@@ -46,12 +47,8 @@ void printQueue(int q[], int front, int rear) {
         return;
     }
     printf("Queue: ");
-    int i = front;
-    while (1) {
+    for (int i = front; i <= rear; i++) {
         printf("%d ", q[i]);
-        if (i == rear)
-            break;
-        i = (i + 1) % MAX_SIZE;
     }
     printf("\n");
 }
