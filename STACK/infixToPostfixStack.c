@@ -14,39 +14,59 @@ int precedence(char c);
 int main() {
     char *stack = initStack(MAX_SIZE);
     
+    // Declare and initialize the stack top as 0 (empty stack)
     int top = 0;
+    // Dynamically allocate memory for infix input string (up to 49 chars + '\0')
     char *infix = (char *)malloc(50 * sizeof(char));
+    // Prompt user for the infix expression
     printf("Enter the infix expression: ");
+    // Read the input line (including spaces) into 'infix'
     fgets(infix, 50, stdin);
+    // Calculate the length of input string
     int length = strlen(infix);
 
+    // Create an array to hold the postfix output, length same as infix
     char postfix[length];
+    // 'j' is postfix output index, 'i' is infix input index
     int j = 0;
     int i = 0;
+    // Process each character of the infix expression
     while (i < length) {
+        // If space is found, just skip it
         if(infix[i] == ' ') {
             i++;
             continue;
         }
+        // If the character is alphanumeric (operand), add to postfix output
         if (isalnum(infix[i])) {
             postfix[j++] = infix[i];
-        } else if(infix[i] == '(') {
+        } 
+        // If character is '(', push to stack
+        else if(infix[i] == '(') {
             push(MAX_SIZE, &top, stack, infix[i]);
-        } else if(infix[i] == ')') {
+        } 
+        // If character is ')', pop from stack to postfix until '(' is encountered
+        else if(infix[i] == ')') {
             while (top > 0 && stack[top - 1] != '(') {
                 postfix[j++] = stack[top - 1];
                 pop(MAX_SIZE, &top, stack);
             }
+            // Pop the '(' from the stack
             pop(MAX_SIZE, &top, stack);
-        } else {
+        } 
+        // If character is an operator
+        else {
+            // Pop operators from stack to postfix as long as they have greater or equal precedence
             while (top > 0 && precedence(infix[i]) <= precedence(stack[top - 1])) {
                 postfix[j++] = stack[top - 1];
                 pop(MAX_SIZE, &top, stack);
             }
+            // Push current operator to stack
             push(MAX_SIZE, &top, stack, infix[i]);
         }
         i++;
     }
+    // Pop any remaining operators from stack to postfix
     while (top > 0) {
         postfix[j++] = stack[top - 1];
         pop(MAX_SIZE, &top, stack);
