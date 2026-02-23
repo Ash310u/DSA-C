@@ -8,7 +8,6 @@ void display(int top, int *stack, int n) {
         printf("Stack is empty\n");
         return;
     }
-    printf("Stack (bottom to top): ");
     for (int i = 0; i <= top; i++) {
         printf("%d ", stack[i]);
     }
