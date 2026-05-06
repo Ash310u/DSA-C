@@ -1,0 +1,3 @@
+
+# Ignore all a.out executables anywhere in the repo
+**/a.out
